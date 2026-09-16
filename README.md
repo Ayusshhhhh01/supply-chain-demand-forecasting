@@ -1,28 +1,39 @@
 # Supply Chain Demand Forecasting & Inventory Optimization
 
-**Status:** In Progress
+An end-to-end supply chain analytics project focused on SKU-level demand forecasting, demand variability, safety stock calculation, replenishment policy optimization, and inventory risk evaluation using the Walmart Recruiting - Store Sales Forecasting dataset.
 
-An end-to-end analytics project focused on SKU-level demand forecasting, demand variability, safety stock, replenishment decisions, and inventory performance.
+## Completed Milestones
+- [x] **Data Ingestion & SQL Warehouse**: Extracted raw Kaggle CSVs (`train.csv`, `features.csv`, `stores.csv`) into a DuckDB star schema warehouse (`dim_store`, `dim_date`, `fact_sales`).
+- [x] **Data Cleaning & Exploratory Data Analysis (`notebooks/02_eda.ipynb`)**: Verified zero null date matches, analyzed missing markdown gaps, identified negative sales (returns), and calculated per-SKU z-scores.
+- [x] **Statistical Analysis & Seasonality (`notebooks/03_statistics.ipynb`)**: Classical seasonal decomposition (52-week seasonality), ACF/PACF autocorrelation analysis, residual kurtosis (~3.13 excess kurtosis / leptokurtic distribution), and safety stock implications.
+- [x] **Feature Engineering (`notebooks/04_feature_engineering.ipynb`)**: Engineered 30 features including temporal calendar encodings, multi-lag sales (`lag_1`, `lag_2`, `lag_4`, `lag_51`, `lag_52`), rolling statistics (4-week & 12-week mean/std), Markdown aggregates, and promo flags.
+- [x] **Model Benchmarking & Forecast Evaluation (`notebooks/05_modeling.ipynb`)**:
+  - Implemented strict time-based split at `2012-05-01` (344,667 train rows, 76,903 validation rows).
+  - Benchmarked **Random Forest**, **XGBoost**, and **Prophet**.
+  - Evaluated using **RMSE** and **WAPE (Weighted Absolute Percentage Error)**, diagnosing near-zero denominator distortions on unweighted MAPE.
+  - Champion Model: **Random Forest** achieved **$2,586.34 RMSE** and **7.77% WAPE** overall across all store types.
 
 ## Planned Stack
-- SQL
-- Python / Pandas
-- XGBoost
-- Time Series Forecasting
-- Power BI
+- Python (pandas, numpy, scikit-learn, xgboost, prophet, statsmodels)
+- SQL (DuckDB)
+- Power BI / Dashboarding
 
-## Roadmap
-- [ ] Data ingestion and SQL warehouse layer
-- [ ] Data cleaning and exploratory analysis
-- [ ] Seasonality and demand-variability analysis
-- [ ] Feature engineering
-- [ ] XGBoost and time-series model benchmarking
-- [ ] Forecast evaluation
-- [ ] Safety-stock and reorder-point optimization
-- [ ] Inventory risk analysis
-- [ ] Power BI dashboard
+## Directory Structure
+```
+├── data/
+│   ├── raw/
+│   └── processed/
+├── sql/
+│   ├── 01_schema.sql
+│   └── 02_aggregations.sql
+├── src/
+│   └── load_to_db.py
+├── notebooks/
+│   ├── 02_eda.ipynb
+│   ├── 03_statistics.ipynb
+│   ├── 04_feature_engineering.ipynb
+│   └── 05_modeling.ipynb
+├── dashboard/
+└── README.md
+```
 
-## Structure
-`data/` · `sql/` · `notebooks/` · `src/` · `dashboard/`
-
-> Raw datasets and final model results will be added as the analysis progresses.

@@ -4,4 +4,12 @@ __pycache__/
 .env
 *.csv
 *.xlsx
+*.duckdb
 .DS_Store
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+create_*.py
+test_*.py
+
