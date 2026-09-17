@@ -1,0 +1,2 @@
+overall_rmse_usd,overall_wape_pct,naive_wape_pct,wape_improvement_pct,total_sku_locations,understocked_count,understocked_pct,healthy_count,healthy_pct,overstocked_count,overstocked_pct,total_excess_inventory_inr,total_excess_inventory_usd
+2586.34,7.77,10.99,29.3,3161,874,27.65,2149,67.98,138,4.37,5902265.34,71111.63
