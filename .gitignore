@@ -11,7 +11,10 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 !data/processed/model_comparison_summary.csv
+!data/processed/inventory_optimization.parquet
+!data/processed/rf_validation_predictions.parquet
 create_*.py
 test_*.py
+
 
 

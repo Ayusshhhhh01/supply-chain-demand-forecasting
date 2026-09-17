@@ -10,8 +10,13 @@ An end-to-end supply chain analytics project focused on SKU-level demand forecas
 - [x] **Model Benchmarking & Forecast Evaluation (`notebooks/05_modeling.ipynb`)**:
   - Implemented strict time-based split at `2012-05-01` (344,667 train rows, 76,903 validation rows).
   - Benchmarked **Random Forest**, **XGBoost**, and **Prophet**.
-  - Evaluated using **RMSE** and **WAPE (Weighted Absolute Percentage Error)**, diagnosing near-zero denominator distortions on unweighted MAPE.
-  - Champion Model: **Random Forest** achieved **$2,586.34 RMSE** and **7.77% WAPE** overall across all store types.
+  - Evaluated using **RMSE** and **WAPE (Weighted Absolute Percentage Error)**, achieving **29.24% WAPE reduction** over a naive seasonal baseline.
+  - Champion Model: **Random Forest** achieved **$2,586.34 RMSE** and **7.77% WAPE** overall.
+- [x] **Inventory Optimization Layer (`notebooks/06_inventory_optimization.ipynb`)**:
+  - Incorporated leptokurtic residual distribution (excess kurtosis ~3.13) to calculate empirical $z$-multipliers (**1.8691** vs 1.6450 parametric, requiring a **1.14x wider safety stock buffer**).
+  - Calculated SKU-location demand variability ($\sigma_{\text{demand}}$), lead time requirements ($L=2$ weeks), Safety Stock, and Reorder Points (ROP).
+  - Segmented 3,161 SKU-locations into **Understocked** (37.71%), **Healthy** (30.84%), and **Overstocked** (31.45%).
+  - Evaluated total excess inventory capital tie-up (**₹438.79 Crore** / **$52.87M USD**) and exported data to `data/processed/inventory_optimization.parquet`.
 
 ## Planned Stack
 - Python (pandas, numpy, scikit-learn, xgboost, prophet, statsmodels)
@@ -32,7 +37,8 @@ An end-to-end supply chain analytics project focused on SKU-level demand forecas
 │   ├── 02_eda.ipynb
 │   ├── 03_statistics.ipynb
 │   ├── 04_feature_engineering.ipynb
-│   └── 05_modeling.ipynb
+│   ├── 05_modeling.ipynb
+│   └── 06_inventory_optimization.ipynb
 ├── dashboard/
 └── README.md
 ```
