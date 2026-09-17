@@ -2,6 +2,8 @@
 
 An end-to-end supply chain analytics project focused on SKU-level demand forecasting, demand variability, safety stock calculation, replenishment policy optimization, and inventory risk evaluation using the Walmart Recruiting - Store Sales Forecasting dataset.
 
+> **Methodology Note**: Inventory positions are simulated (seeded for reproducibility) due to the absence of real stock-on-hand data in the public Walmart Kaggle dataset; safety stock and reorder point logic uses actual forecasted demand and empirical (non-parametric) demand variability from the trained models.
+
 ## Completed Milestones
 - [x] **Data Ingestion & SQL Warehouse**: Extracted raw Kaggle CSVs (`train.csv`, `features.csv`, `stores.csv`) into a DuckDB star schema warehouse (`dim_store`, `dim_date`, `fact_sales`).
 - [x] **Data Cleaning & Exploratory Data Analysis (`notebooks/02_eda.ipynb`)**: Verified zero null date matches, analyzed missing markdown gaps, identified negative sales (returns), and calculated per-SKU z-scores.
@@ -16,7 +18,8 @@ An end-to-end supply chain analytics project focused on SKU-level demand forecas
   - Incorporated leptokurtic residual distribution (excess kurtosis ~3.13) to calculate empirical $z$-multipliers (**1.8691** vs 1.6450 parametric, requiring a **1.14x wider safety stock buffer**).
   - Calculated SKU-location demand variability ($\sigma_{\text{demand}}$), lead time requirements ($L=2$ weeks), Safety Stock, and Reorder Points (ROP).
   - Segmented 3,161 SKU-locations into **Understocked** (37.71%), **Healthy** (30.84%), and **Overstocked** (31.45%).
-  - Evaluated total excess inventory capital tie-up (**₹438.79 Crore** / **$52.87M USD**) and exported data to `data/processed/inventory_optimization.parquet`.
+  - Evaluated excess inventory capital tie-up (**$8.78M USD** / **₹72.84 Crore**, representing **0.72%** of total validation revenue) and exported data to `data/processed/inventory_optimization.parquet`.
+
 
 ## Planned Stack
 - Python (pandas, numpy, scikit-learn, xgboost, prophet, statsmodels)
