@@ -8,7 +8,7 @@ An end-to-end supply chain analytics and machine learning solution focused on SK
 
 | Metric / Dimension | Benchmark / Output Value | Details & Business Impact |
 |---|---|---|
-| **Champion Forecast Model** | **Random Forest Regressor** | Outperformed XGBoost ($2,642.48 RMSE) and Prophet ($8,131.85 RMSE) |
+| **Champion Forecast Model** | **Random Forest Regressor** | Outperformed XGBoost ($2,629.71 RMSE; 7.82% WAPE) and Naive YoY Baseline ($3,601.47 RMSE; 10.99% WAPE). Prophet evaluated at store-type aggregate scale ($653,686.86 RMSE, 2.61% WAPE; not directly comparable at SKU level). |
 | **Forecast Accuracy (RMSE)** | **$2,586.34** | Evaluated on out-of-time validation split (`2012-05-01` through `2012-10-26`) |
 | **Forecast Accuracy (WAPE)** | **7.77%** | Overall Weighted Absolute Percentage Error across 76,903 validation rows |
 | **WAPE % Improvement vs. Naive** | **29.24% Reduction** | 29.24% WAPE improvement over Year-Over-Year Naive Seasonal Baseline (10.99% WAPE) |
@@ -28,13 +28,13 @@ An end-to-end supply chain analytics and machine learning solution focused on SK
 
 ## Pipeline Overview
 
-1. **Step 1: SQL Data Warehouse & Star Schema DDL** ([sql/01_schema.sql](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/sql/01_schema.sql), [sql/02_aggregations.sql](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/sql/02_aggregations.sql), [src/load_to_db.py](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/src/load_to_db.py)) — Extracted raw Kaggle CSVs into a DuckDB star schema warehouse (`dim_store`, `dim_date`, `fact_sales`).
-2. **Step 2: Exploratory Data Analysis & Outlier Detection** ([notebooks/02_eda.ipynb](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/notebooks/02_eda.ipynb)) — Verified zero null date joins, analyzed markdown missingness, identified negative return sales, and calculated per-SKU z-scores.
-3. **Step 3: Statistical Time-Series Analysis & Kurtosis Check** ([notebooks/03_statistics.ipynb](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/notebooks/03_statistics.ipynb)) — Performed 52-week seasonal decomposition, ACF/PACF autocorrelation checks, and identified leptokurtic residual excess kurtosis (~3.13).
-4. **Step 4: Feature Engineering & Lag Generation** ([notebooks/04_feature_engineering.ipynb](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/notebooks/04_feature_engineering.ipynb)) — Created 30 temporal, rolling (4-week/12-week mean & std), multi-lag (`lag_1`, `lag_2`, `lag_4`, `lag_51`, `lag_52`), and promo aggregate features.
-5. **Step 5: Machine Learning Demand Forecasting Benchmarks** ([notebooks/05_modeling.ipynb](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/notebooks/05_modeling.ipynb)) — Trained and benchmarked Random Forest, XGBoost, Prophet, and Naive YoY baselines on a strict time-based split at `2012-05-01`.
-6. **Step 6: Empirical Safety Stock & Inventory Optimization** ([notebooks/06_inventory_optimization.ipynb](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/notebooks/06_inventory_optimization.ipynb)) — Derived non-parametric empirical $z$-multipliers, calculated SKU-level safety stock and ROP, and evaluated overstock risk.
-7. **Step 7: Power BI Dashboard Data Layer Preparation** ([notebooks/07_dashboard_prep.ipynb](file:///D:/Ssshhhh/Projexts/Supply%20Chain/supply-chain-demand-forecasting/notebooks/07_dashboard_prep.ipynb)) — Exported 4 flat, denormalized CSV tables with APE confidence flags and plain-language SKU stockout alerts to `dashboard/`.
+1. **Step 1: SQL Data Warehouse & Star Schema DDL** ([sql/01_schema.sql](sql/01_schema.sql), [sql/02_aggregations.sql](sql/02_aggregations.sql), [src/load_to_db.py](src/load_to_db.py)) — Extracted raw Kaggle CSVs into a DuckDB star schema warehouse (`dim_store`, `dim_date`, `fact_sales`).
+2. **Step 2: Exploratory Data Analysis & Outlier Detection** ([notebooks/02_eda.ipynb](notebooks/02_eda.ipynb)) — Verified zero null date joins, analyzed markdown missingness, identified negative return sales, and calculated per-SKU z-scores.
+3. **Step 3: Statistical Time-Series Analysis & Kurtosis Check** ([notebooks/03_statistics.ipynb](notebooks/03_statistics.ipynb)) — Performed 52-week seasonal decomposition, ACF/PACF autocorrelation checks, and identified leptokurtic residual excess kurtosis (~3.13).
+4. **Step 4: Feature Engineering & Lag Generation** ([notebooks/04_feature_engineering.ipynb](notebooks/04_feature_engineering.ipynb)) — Created 30 temporal, rolling (4-week/12-week mean & std), multi-lag (`lag_1`, `lag_2`, `lag_4`, `lag_51`, `lag_52`), and promo aggregate features.
+5. **Step 5: Machine Learning Demand Forecasting Benchmarks** ([notebooks/05_modeling.ipynb](notebooks/05_modeling.ipynb)) — Trained and benchmarked Random Forest, XGBoost, Prophet, and Naive YoY baselines on a strict time-based split at `2012-05-01`.
+6. **Step 6: Empirical Safety Stock & Inventory Optimization** ([notebooks/06_inventory_optimization.ipynb](notebooks/06_inventory_optimization.ipynb)) — Derived non-parametric empirical $z$-multipliers, calculated SKU-level safety stock and ROP, and evaluated overstock risk.
+7. **Step 7: Power BI Dashboard Data Layer Preparation** ([notebooks/07_dashboard_prep.ipynb](notebooks/07_dashboard_prep.ipynb)) — Exported 4 flat, denormalized CSV tables with APE confidence flags and plain-language SKU stockout alerts to `dashboard/`.
 
 ---
 
