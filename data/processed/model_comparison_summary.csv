@@ -1,0 +1,5 @@
+Model,Level,Overall RMSE ($),Overall WAPE (%),Overall MAPE (%),WAPE % Improvement over Naive
+Naive Baseline (lag_52 / lag_1),SKU,3601.47,10.99,399.49,0.00% (Baseline)
+Random Forest (SKU-level),SKU,2586.34,7.77,45.45,+29.24%
+XGBoost (SKU-level),SKU,2629.71,7.82,103.49,+28.85%
+Prophet (Store-Type Agg)*,Store Type Aggregate,653686.86,2.61,2.72,N/A (Store Type Aggregate - Not directly comparable)

@@ -10,6 +10,8 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/model_comparison_summary.csv
 create_*.py
 test_*.py
+
 
