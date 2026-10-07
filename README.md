@@ -8,7 +8,7 @@ An end-to-end supply chain analytics and machine learning solution focused on SK
 
 | Metric / Dimension | Benchmark / Output Value | Details & Business Impact |
 |---|---|---|
-| **Champion Forecast Model** | **Random Forest Regressor** | Outperformed XGBoost ($2,629.71 RMSE; 7.82% WAPE) and Naive YoY Baseline ($3,601.47 RMSE; 10.99% WAPE). Prophet evaluated at store-type aggregate scale ($653,686.86 RMSE, 2.61% WAPE; not directly comparable at SKU level). |
+| **Champion Forecast Model** | **Random Forest Regressor** | Outperformed XGBoost ($2,610.38 RMSE; 7.85% WAPE) and Naive YoY Baseline ($3,601.47 RMSE; 10.99% WAPE). Prophet evaluated at store-type aggregate scale ($653,686.86 RMSE, 2.61% WAPE; not directly comparable at SKU level). |
 | **Forecast Accuracy (RMSE)** | **$2,586.34** | Evaluated on out-of-time validation split (`2012-05-01` through `2012-10-26`) |
 | **Forecast Accuracy (WAPE)** | **7.77%** | Overall Weighted Absolute Percentage Error across 76,903 validation rows |
 | **WAPE % Improvement vs. Naive** | **29.24% Reduction** | 29.24% WAPE improvement over Year-Over-Year Naive Seasonal Baseline (10.99% WAPE) |
